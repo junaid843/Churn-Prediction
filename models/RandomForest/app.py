@@ -39,7 +39,10 @@ def load_files():
         label_enc = joblib.load('random_label.pkl')
  
         return model, label_enc
-## here
+    except Exception as e:
+        st.error(f"Error loading files: {e}")
+        return None, None
+
 model, label_enc = load_files()
 
 
@@ -130,5 +133,6 @@ if model is not None:
                 st.success("✅ Prediction: Customer will STAY")
 
      
+
 
 
