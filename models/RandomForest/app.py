@@ -35,8 +35,8 @@ st.markdown("""
 def load_files():
     try:
       
-        model = joblib.load('churn_pred_rf_model.pkl')
-        label_enc = joblib.load('random_label.pkl')
+        model = joblib.load('models/RandomForest/churn_pred_rf_model.pkl')
+        label_enc = joblib.load('models/RandomForest/random_label.pkl')
  
         return model, label_enc
     except Exception as e:
@@ -133,6 +133,7 @@ if model is not None:
                 st.success("✅ Prediction: Customer will STAY")
 
      
+
 
 
 
