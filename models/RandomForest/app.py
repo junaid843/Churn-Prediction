@@ -73,7 +73,7 @@ if model is not None:
             st.subheader("⚙️ Activity & Score")
             has_crcard = st.selectbox("Has Credit Card?", ["Yes", "No"])
             is_active_member = st.selectbox("Is Active Member?", ["Yes", "No"])
-            complain = st.selectbox("Any Complain?", ["Yes", "No"]) s
+            complain = st.selectbox("Any Complain?", ["Yes", "No"]) 
             satisfaction_score = st.number_input("Satisfaction Score", min_value=0, value=3)
             point_earned = st.number_input("Points Earned", min_value=0, value=500)
 
@@ -91,7 +91,7 @@ if model is not None:
             
             has_crcard_val = 1 if has_crcard == "Yes" else 0
             is_active_val = 1 if is_active_member == "Yes" else 0
-            complain_val = 1 if complain == "Yes" else 0 t
+            complain_val = 1 if complain == "Yes" else 0 
 
             geo_france = 1 if geography == "France" else 0
             geo_germany = 1 if geography == "Germany" else 0
@@ -133,3 +133,4 @@ if model is not None:
                 st.success("✅ Prediction: Customer will STAY")
 
      
+
