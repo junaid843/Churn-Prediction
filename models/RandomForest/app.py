@@ -3,9 +3,6 @@ import pandas as pd
 import numpy as np
 import joblib
 
-# ------------------------------------------------------------------------------
-# 1. Page Configuration (Professional Look)
-# ------------------------------------------------------------------------------
 st.set_page_config(
     page_title="Customer Churn Prediction",
     page_icon="📉",
@@ -33,17 +30,14 @@ st.markdown("""
     </style>
     """, unsafe_allow_html=True)
 
-# ------------------------------------------------------------------------------
-# 2. Load Models (Joblib se load karein)
-# ------------------------------------------------------------------------------
+
 @st.cache_resource
 def load_files():
     try:
-        # Ye files wahi honi chahiye jo apke folder me hain
+      
         model = joblib.load('churn_pred_rf_model.pkl')
         label_enc = joblib.load('random_label.pkl')
-        # Note: OHE file load krne ki zaroorat nahi, hum manual logic lagayenge
-        # taake dimension mismatch ka error na aaye.
+ 
         return model, label_enc
     except Exception as e:
         st.error(f"Error loading files: {e}")
@@ -51,16 +45,14 @@ def load_files():
 
 model, label_enc = load_files()
 
-# ------------------------------------------------------------------------------
-# 3. App Layout & Inputs
-# ------------------------------------------------------------------------------
+
 st.title("📉 Customer Churn Prediction System")
 st.markdown("### Enter Customer Details to Predict Churn")
 st.write("---")
 
 if model is not None:
     with st.form("churn_form"):
-        # Hum columns bana rahe hain taake form acha dikhe
+       
         col1, col2, col3 = st.columns(3)
 
         with col1:
@@ -81,33 +73,26 @@ if model is not None:
             st.subheader("⚙️ Activity & Score")
             has_crcard = st.selectbox("Has Credit Card?", ["Yes", "No"])
             is_active_member = st.selectbox("Is Active Member?", ["Yes", "No"])
-            complain = st.selectbox("Any Complain?", ["Yes", "No"]) # Assuming binary based on typical datasets
+            complain = st.selectbox("Any Complain?", ["Yes", "No"]) s
             satisfaction_score = st.number_input("Satisfaction Score", min_value=0, value=3)
             point_earned = st.number_input("Points Earned", min_value=0, value=500)
 
         st.markdown("---")
         submit_btn = st.form_submit_button("🚀 Predict Result")
 
-    # ------------------------------------------------------------------------------
-    # 4. Prediction Logic (Ye sabse important part hai)
-    # ------------------------------------------------------------------------------
+
     if submit_btn:
         
-            # 1. Label Encoding for Gender (Loaded encoder use kar rahe hain)
+ 
             try:
-                # Agar encoder "Male" jesa string expect krta hai
                 gender_encoded = label_enc.transform([gender])[0]
             except:
-                # Fallback agar encoder file me issue ho
                 gender_encoded = 1 if gender == "Male" else 0
             
-            # 2. Manual Inputs Mapping (Yes/No to 1/0)
             has_crcard_val = 1 if has_crcard == "Yes" else 0
             is_active_val = 1 if is_active_member == "Yes" else 0
-            complain_val = 1 if complain == "Yes" else 0 # Adjust logic if Complain in notebook was different
+            complain_val = 1 if complain == "Yes" else 0 t
 
-            # 3. One Hot Encoding for Geography (Manual logic for safety)
-            # Aapke features list me: Geography_France, Geography_Germany, Geography_Spain hain
             geo_france = 1 if geography == "France" else 0
             geo_germany = 1 if geography == "Germany" else 0
             geo_spain = 1 if geography == "Spain" else 0
@@ -146,4 +131,5 @@ if model is not None:
                 st.write("Suggestion: Please offer them a better plan or discount.")
             else:
                 st.success("✅ Prediction: Customer will STAY")
+
      
